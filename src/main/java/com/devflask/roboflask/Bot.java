@@ -69,5 +69,8 @@ public class Bot {
         for (Command cmd : commands) commandManager.addCommand(cmd);
     }
 
+    public JDA getBot() {
+        return bot;
+    }
 
 }

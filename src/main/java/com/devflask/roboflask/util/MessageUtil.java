@@ -24,6 +24,8 @@ public class MessageUtil {
 
         BLAME_DODO("Dodo is a fucking bitch"),
         BLAME_JOLLY("Jolly you didn't fucking tell us this was here and we wasted our time you cunt"),
+
+        LOG_GUILDMESSAGEDELETE("% by % was deleted in %")
         ;
 
         public final String message;
@@ -70,6 +72,15 @@ public class MessageUtil {
 
         return getDefaultEmbed(EmbedColor.GREEN, executor, pfp)
                 .setDescription(executor+messagesEnum.message+appendString.toString());
+    }
+
+    public static EmbedBuilder getDefaultLogMessage(Messages messagesEnum, String executor, String pfp, String ... s){
+        String message = messagesEnum.message;
+        for (String str : s){
+            message = message.replaceFirst("%", str);
+        }
+        return getDefaultEmbed(EmbedColor.RED, executor, pfp)
+                .setDescription(message);
     }
 
     public static EmbedBuilder getDefaultEmbed(EmbedColor color, String executor, String pfp){

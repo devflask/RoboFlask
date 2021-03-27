@@ -1,11 +1,14 @@
 package com.devflask.roboflask.configuration;
 
+import net.dv8tion.jda.api.entities.TextChannel;
+
 public class Config {
 
     public final String status;
     public final Long[] adminsID;
     public static final String DEFAULT_PREFIX = "!";
     public final Database database;
+    public final TextChannel logChannel;
 
     class Database {
         public final String ip;
@@ -22,12 +25,15 @@ public class Config {
         }
     }
 
-    public Config(String status, Long[] adminsID, String defaultPrefix, Database database){
+
+    public Config(String status, Long[] adminsID, String defaultPrefix, Database database, TextChannel logChannel){
         this.status = status;
         this.adminsID = adminsID;
         this.database = database;
+        this.logChannel = logChannel;
     }
 
-
-
+    public TextChannel getLogChannel() {
+        return logChannel;
+    }
 }
