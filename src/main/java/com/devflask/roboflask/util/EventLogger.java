@@ -15,7 +15,7 @@ public class EventLogger extends ListenerAdapter {
 
         if (gmre == null){
             event.getJDA().getGuildById("298480981441118208").getTextChannelById("807733786028015627")
-                    .sendMessage(event.getClass().getName()).queue();
+                    .sendMessage("EVENT: "+event.getClass()).queue();
         }
     }
 }
