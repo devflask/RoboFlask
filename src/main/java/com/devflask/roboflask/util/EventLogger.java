@@ -14,7 +14,7 @@ public class EventLogger extends ListenerAdapter {
     public void onGenericEvent(GenericEvent e){
 
         Object o =
-            e instanceof GuildMessageDeleteEvent ? log(e, "GuildMessageDeleteEvent was fired") :
+            e instanceof GuildMessageDeleteEvent ? log(e, ((GuildMessageDeleteEvent) e).getMessageId()+"") :
             e instanceof GuildMemberJoinEvent ? log(e, "GuildMemberJoinEvent was fired") :
             e instanceof GuildMemberRemoveEvent ? log(e, "GuildMemberRemoveEvent was fired") :
             e instanceof GuildMemberRoleRemoveEvent ? log(e, "GuildMemberRoleRemoveEvent was fired") :
