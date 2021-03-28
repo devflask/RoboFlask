@@ -4,6 +4,7 @@ import com.devflask.roboflask.command.Command;
 import com.devflask.roboflask.command.CommandInformation;
 import com.devflask.roboflask.util.MessageUtil;
 import com.devflask.roboflask.util.EmbedColor;
+import com.devflask.roboflask.util.Statics;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -66,16 +67,14 @@ public class Kick implements Command {
             }
 
             final String reason = String.join(" ", Arrays.asList(args).subList(2, args.length));
+
             target.kick(reason).queue();
-            channel.sendMessage(MessageUtil.getCommandSuccess(
-                    MessageUtil.Messages.COMMAND_SUCCESS_KICK,
+
+            channel.sendMessage(Statics.EMBED.KICK.footer(Statics.MESSAGE.SUCCESS_KICK.insert(
                     member.getEffectiveName(),
-                    member.getUser().getAvatarUrl(),
                     target.getEffectiveName(),
-                    " for ",
                     reason
-                    ).build()
-            ).queue();
+            )).get()).queue();
         }
 
 
