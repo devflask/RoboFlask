@@ -50,7 +50,7 @@ public class MessageUtil {
             appendString.append(str);
         }
 
-        return getDefaultEmbed(EmbedColor.RED, executor, pfp)
+        return getDefaultEmbed(EmbedColor.ERROR, executor, pfp)
                 .setDescription(messagesEnum.message+appendString)
                 .addField("Required Permissions:", permissionString.toString(), false);
     }
@@ -60,7 +60,7 @@ public class MessageUtil {
         for (String str : s){
             appendString.append(str);
         }
-        return getDefaultEmbed(EmbedColor.RED, executor, pfp)
+        return getDefaultEmbed(EmbedColor.ERROR, executor, pfp)
                 .setDescription(messagesEnum.message+appendString);
     }
 
@@ -70,7 +70,7 @@ public class MessageUtil {
             appendString.append(str);
         }
 
-        return getDefaultEmbed(EmbedColor.GREEN, executor, pfp)
+        return getDefaultEmbed(EmbedColor.SUCCESS, executor, pfp)
                 .setDescription(executor+messagesEnum.message+appendString.toString());
     }
 
@@ -79,7 +79,7 @@ public class MessageUtil {
         for (String str : s){
             message = message.replaceFirst("%", str);
         }
-        return getDefaultEmbed(EmbedColor.RED, executor, pfp)
+        return getDefaultEmbed(EmbedColor.ERROR, executor, pfp)
                 .setDescription(message);
     }
 
