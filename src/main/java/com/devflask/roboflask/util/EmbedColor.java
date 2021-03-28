@@ -2,8 +2,10 @@ package com.devflask.roboflask.util;
 
 public enum EmbedColor {
 
-    RED(16537691),
-    GREEN(6612580);
+    DEFAULT(5208744),
+    ERROR(16537691),
+    SUCCESS(6612580),
+    MODERATION(12084205);
 
     public final Integer color;
     EmbedColor(Integer color){
