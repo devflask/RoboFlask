@@ -63,7 +63,7 @@ public class BotInfo implements Command {
         DecimalFormat df = new DecimalFormat("####.##");
         df.setRoundingMode(RoundingMode.DOWN);
         OperatingSystemMXBean mxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        EmbedBuilder embed = MessageUtil.getDefaultEmbed(EmbedColor.GREEN, executor,pfp);
+        EmbedBuilder embed = MessageUtil.getDefaultEmbed(EmbedColor.SUCCESS, executor,pfp);
         embed.setDescription("I am a bot.");
         embed.setThumbnail(botUser.getAvatarUrl());
         embed.addField("Discord Stats",
