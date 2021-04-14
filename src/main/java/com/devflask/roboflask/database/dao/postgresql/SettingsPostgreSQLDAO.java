@@ -3,6 +3,7 @@ package com.devflask.roboflask.database.dao.postgresql;
 import com.devflask.roboflask.database.PostgreSQLDatasource;
 import com.devflask.roboflask.database.dao.DAO;
 import com.devflask.roboflask.database.pojo.Guild;
+import com.devflask.roboflask.database.pojo.Setting;
 import jdk.internal.jline.internal.Nullable;
 
 import javax.xml.transform.Result;
@@ -14,7 +15,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 
-public class GuildsPostgreSQLDAO implements DAO<Guild> {
+public class SettingsPostgreSQLDAO implements DAO<Setting> {
 
     @Nullable
     private ResultSet execute(String statement){
@@ -29,54 +30,50 @@ public class GuildsPostgreSQLDAO implements DAO<Guild> {
     }
 
     @Override
-    public Optional<Guild> get(long id) {
+    public Optional<Setting> get(long id) {
         return Optional.empty();
     }
 
     @Override
-    public Collection<Guild> getAll() {
+    public Collection<Setting> getAll() {
         ResultSet result = execute("SELECT * FROM roboflask.guilds");
-        Collection<Guild> guilds = new HashSet<>();
+        Collection<Setting> settings = new HashSet<>();
         try{
             while (result.next()){
-                Guild g = new Guild();
-                g.setId(result.getInt(1));
-                g.setName(result.getString(2));
-                g.setJoined(result.getDate(3));
-                g.setOwnerId(result.getInt(4));
-                guilds.add(g);
+                Setting setting = new Setting();
+                setting.setId(result.getInt(1));
+                setting.setPrefix(result.getString(2));
+                setting.setLogChannel(result.getLong(3));
+                settings.add(setting);
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return guilds;
+        return settings;
     }
 
     @Override
-    public void save(Guild guild) {
-        update(guild);
+    public void save(Setting setting) {
+        update(setting);
         //you saw nothing :)
     }
 
     @Override
-    public void update(Guild guild) {
-        String SQL = "INSERT INTO roboflask.guilds(id, name, owner_id, joined) " +
-                "VALUES (?,?,?,?);" +
+    public void update(Setting setting) {
+        String SQL = "INSERT INTO roboflask.settings(id, prefix, log_channel) " +
+                "VALUES (?,?,?)" +
                 "ON CONFLICT (id) DO UPDATE " +
-                "SET name = ?," +
-                "owner_id = ?,"+
-                "joined = ?;";
+                "SET prefix = ?," +
+                "log_channel = ?;";
+
 
         try (Connection conn = PostgreSQLDatasource.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
-
-            pstmt.setLong(1, guild.getId());
-            pstmt.setString(2, guild.getName());
-            pstmt.setDate(4, guild.getJoined());
-            pstmt.setLong(3, guild.getOwnerId());
-            pstmt.setString(5, guild.getName());
-            pstmt.setLong(6,guild.getOwnerId());
-            pstmt.setDate(7, guild.getJoined());
+            pstmt.setLong(1, setting.getId());
+            pstmt.setString(2, setting.getPrefix());
+            pstmt.setLong(3, setting.getLogChannel());
+            pstmt.setString(4, setting.getPrefix());
+            pstmt.setLong(5, setting.getLogChannel());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -85,10 +82,10 @@ public class GuildsPostgreSQLDAO implements DAO<Guild> {
     }
 
     @Override
-    public void delete(Guild guild) {
+    public void delete(Setting setting) {
         try(Connection connection = PostgreSQLDatasource.getConnection();
             PreparedStatement statement = connection.prepareStatement("DELETE FROM roboflask.guilds where id = ?")){
-            statement.setLong(1,guild.getId());
+            statement.setLong(1,setting.getId());
             statement.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
